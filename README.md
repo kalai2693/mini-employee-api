@@ -37,18 +37,31 @@ pytest
 ```
 
 ## 4. Git workflow
+## 4. Git workflow
+
 ```bash
-git init
+# Employee CRUD
 git checkout -b feature/employee-crud
 git add .
 git commit -m "feat: add employee CRUD"
+
+# File import
+git checkout master
 git checkout -b feature/file-import
 git add .
 git commit -m "feat: add Excel importer"
+
+# Webhook
+git checkout master
 git checkout -b feature/webhook
 git add .
 git commit -m "feat: add HMAC employee webhook"
-```
+
+# Bug fix example
+git checkout master
+git checkout -b fix/pdf-parsing-bug
+git add .
+git commit -m "fix: handle PDF parsing issue"
 
 Never commit `.env`, `.venv`, logs, or production JSON data.
 
