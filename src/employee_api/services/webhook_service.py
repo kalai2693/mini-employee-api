@@ -1,6 +1,8 @@
 from typing import Any
 from ..utils.logger import get_logger
-logger=get_logger(__name__)
+
+logger = get_logger(__name__)
+
 
 class WebhookService:
     def process(self, event: dict[str, Any]) -> None:

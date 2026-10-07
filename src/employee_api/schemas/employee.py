@@ -2,6 +2,7 @@ from datetime import date
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from typing import Optional
 
+
 class EmployeeBase(BaseModel):
     first_name: str = Field(min_length=1, max_length=100)
     last_name: str = Field(min_length=1, max_length=100)
@@ -13,8 +14,10 @@ class EmployeeBase(BaseModel):
     status: str = Field(min_length=1, max_length=50)
     joining_date: date
 
+
 class EmployeeCreate(EmployeeBase):
     pass
+
 
 class EmployeeUpdate(BaseModel):
     first_name: Optional[str] = Field(default=None, min_length=1, max_length=100)
@@ -26,6 +29,7 @@ class EmployeeUpdate(BaseModel):
     salary: Optional[float] = Field(default=None, gt=0)
     status: Optional[str] = Field(default=None, min_length=1, max_length=50)
     joining_date: Optional[date] = None
+
 
 class EmployeeResponse(EmployeeBase):
     id: int
