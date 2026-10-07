@@ -6,8 +6,10 @@ from .utils.logger import get_logger
 
 logger = get_logger(__name__)
 
+
 class StorageError(Exception):
     """Raised when employee storage cannot be read or written."""
+
 
 class StorageService:
     def __init__(self, data_file: Path = DATA_FILE) -> None:

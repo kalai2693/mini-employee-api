@@ -2,15 +2,21 @@ from typing import Any
 from ..schemas.employee import EmployeeCreate, EmployeeUpdate
 from ..storage import StorageService
 
-class EmployeeNotFoundError(Exception): pass
-class DuplicateEmailError(Exception): pass
+
+class EmployeeNotFoundError(Exception):
+    pass
+
+
+class DuplicateEmailError(Exception):
+    pass
+
 
 class EmployeeService:
     def __init__(self, storage: StorageService) -> None:
         self.storage = storage
 
     def list(self, skip: int = 0, limit: int = 10) -> list[dict[str, Any]]:
-        return self.storage.read()[skip:skip+limit]
+        return self.storage.read()[skip : skip + limit]
 
     def get(self, employee_id: int) -> dict[str, Any]:
         for emp in self.storage.read():
@@ -19,7 +25,10 @@ class EmployeeService:
         raise EmployeeNotFoundError
 
     def _unique(self, email: str, ignore_id: int | None = None) -> None:
-        if any(e.get("email", "").lower() == email.lower() and e["id"] != ignore_id for e in self.storage.read()):
+        if any(
+            e.get("email", "").lower() == email.lower() and e["id"] != ignore_id
+            for e in self.storage.read()
+        ):
             raise DuplicateEmailError
 
     def create(self, payload: EmployeeCreate) -> dict[str, Any]:
@@ -47,7 +56,8 @@ class EmployeeService:
         for i, e in enumerate(records):
             if e["id"] == employee_id:
                 changes = payload.model_dump(exclude_unset=True, mode="json")
-                if "email" in changes: self._unique(changes["email"], employee_id)
+                if "email" in changes:
+                    self._unique(changes["email"], employee_id)
                 e.update(changes)
                 records[i] = e
                 self.storage.write(records)
